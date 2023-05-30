@@ -1,10 +1,10 @@
-import mysql from "mysql2";
+import mysql from 'mysql2/promise';
 
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "thereisnospoon",
-  database: "cookbook",
+  host: 'localhost',
+  user: 'root',
+  password: 'thereisnospoon',
+  database: 'cookbook',
   waitForConnections: true,
   connectionLimit: 10,
   maxIdle: 10,

@@ -1,5 +1,5 @@
 const rootHandler = (request, response) => {
-  response.send("☮️");
+  response.send('☮️');
 };
 
 export default rootHandler;
