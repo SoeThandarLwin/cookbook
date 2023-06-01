@@ -1,5 +1,5 @@
-import { useState } from "react";
-import GlobalContext from "./GlobalContext.js";
+import { useState } from 'react';
+import GlobalContext from './GlobalContext.js';
 
 const GlobalContextProvider = (props) => {
   const [profile, setProfile] = useState({});
