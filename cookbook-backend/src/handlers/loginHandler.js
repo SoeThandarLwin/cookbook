@@ -28,6 +28,7 @@ const loginHandler = async (request, response) => {
         }
 
         delete user.password;
+
         const token = await jsonwebtoken.sign(
           user,
           'c+27R5AKGiZrm4wdjSisbL4uTJtt9p2BdT8nJzXNIcXRg1tr0lSd1pSVmZHufbdpHEra3Y3z3pJvfzknH5OfEQ==',
