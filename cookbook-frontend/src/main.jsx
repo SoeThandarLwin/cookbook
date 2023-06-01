@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import GlobalContextProvider from './contexts/GlobalContextProvider.jsx';
@@ -20,12 +21,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <GlobalContextProvider>
-      <RouterProvider router={router}>
-        <App />
-      </RouterProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
+      </QueryClientProvider>
     </GlobalContextProvider>
   </React.StrictMode>,
 );
