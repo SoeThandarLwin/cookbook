@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+
 import Axios from '../utils/Axios.js';
 
 export default function Login() {
@@ -12,7 +13,7 @@ export default function Login() {
 
   const passwordChangeHandler = (e) => setPassword(e.target.value);
 
-  const { isLoading, mutate } = useMutation((data) => {
+  const { isLoading, mutate } = useMutation(() => {
     return Axios.post('login', {
       email,
       password,
@@ -71,7 +72,6 @@ export default function Login() {
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               onClick={handleSubmit}
               disabled={isLoading}
-              required
             >
               Login
             </button>
