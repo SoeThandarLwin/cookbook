@@ -10,6 +10,7 @@ import Login from './pages/Login.jsx';
 
 import './index.css';
 import Register from './pages/Register.jsx';
+import Recipes from './pages/Recipes.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/recipes',
+    element: <Recipes />,
   },
 ]);
 

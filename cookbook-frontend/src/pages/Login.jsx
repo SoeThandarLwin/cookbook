@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import Axios from '../utils/Axios.js';
+import GlobalContext from '../contexts/GlobalContext.js';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const { setProfile } = useContext(GlobalContext);
 
   const emailChangeHandler = (e) => setEmail(e.target.value);
 
@@ -19,6 +22,7 @@ export default function Login() {
       password,
     }).then((res) => {
       if (res.status === 200) {
+        setProfile(res.data);
         navigate('/');
       }
     });
