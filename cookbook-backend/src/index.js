@@ -6,6 +6,7 @@ import rootHandler from './handlers/rootHandler.js';
 import registerHandler from './handlers/registerHandler.js';
 import loginHandler from './handlers/loginHandler.js';
 import createRecipeHandler from './handlers/createRecipeHandler.js';
+import listRecipesHandler from './handlers/listRecipesHandler.js';
 
 const app = express();
 const port = 3000;
@@ -18,6 +19,7 @@ app.post('/register', registerHandler);
 app.post('/login', loginHandler);
 
 app.post('/recipes', createRecipeHandler);
+app.get('/recipes', listRecipesHandler);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
