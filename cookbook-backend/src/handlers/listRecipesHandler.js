@@ -16,7 +16,7 @@ const listRecipesHandler = async (request, response) => {
     },
   }));
 
-  response.status(200).send(recipes);
+  response.status(200).send({data: recipes});
 };
 
 export default listRecipesHandler;

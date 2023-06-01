@@ -35,7 +35,7 @@ const loginHandler = async (request, response) => {
         );
         response
           .cookie('jwt', token, { httpOnly: true, sameSite: 'lax' })
-          .send();
+          .send(user);
         return;
       }
     });
