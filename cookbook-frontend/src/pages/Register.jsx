@@ -42,17 +42,6 @@ export default function Register() {
         navigate('/');
       }
     });
-
-    // Axios.post('register', {
-    //   data: formData,
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    // }).then((res) => {
-    //   if (res.status === 200) {
-    //     navigate('/');
-    //   }
-    // });
   });
 
   const handleSubmit = (e) => {

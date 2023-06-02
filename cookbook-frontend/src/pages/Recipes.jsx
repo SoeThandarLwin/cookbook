@@ -11,7 +11,11 @@ export default function Recipes() {
   return (
     <>
       {recipes.map((recipe) => (
-        <div key={recipe.id}>{recipe.name}</div>
+        <div key={recipe.id}>
+          <div>{recipe.name}</div>
+          <div>{recipe.calories} Cal</div>
+          <div>{recipe.prep_time} Mins</div>
+        </div>
       ))}
     </>
   );

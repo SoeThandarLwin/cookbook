@@ -11,6 +11,7 @@ import Login from './pages/Login.jsx';
 import './index.css';
 import Register from './pages/Register.jsx';
 import Recipes from './pages/Recipes.jsx';
+import CreateRecipe from './pages/CreateRecipe.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: '/recipes',
     element: <Recipes />,
+  },
+  {
+    path: '/create',
+    element: <CreateRecipe />,
   },
 ]);
 
