@@ -34,7 +34,7 @@ export default function CreateRecipe() {
     form.append('data', JSON.stringify(request));
 
     return Axios.post('recipes', form).then((res) => {
-      if (res.status === 201) {
+      if (res.status === 200) {
         navigate('/');
       }
     });
