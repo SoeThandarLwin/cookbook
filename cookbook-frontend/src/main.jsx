@@ -12,6 +12,8 @@ import './index.css';
 import Register from './pages/Register.jsx';
 import Recipes from './pages/Recipes.jsx';
 import CreateRecipe from './pages/CreateRecipe.jsx';
+import Profile from './pages/Profile.jsx';
+import UpdateProfile from './pages/UpdateProfile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
   {
     path: '/create',
     element: <CreateRecipe />,
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
+  },
+  {
+    path: '/profile/update',
+    element: <UpdateProfile />,
   },
 ]);
 
