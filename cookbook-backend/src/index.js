@@ -11,6 +11,12 @@ import registerHandler from './handlers/registerHandler.js';
 import rootHandler from './handlers/rootHandler.js';
 import getProfileHandler from "./handlers/getProfileHandler.js";
 import updateProfileHandler from "./handlers/updateProfileHandler.js";
+import getFeaturedHandler from "./handlers/getFeaturedHandler.js";
+import getPopularHandler from "./handlers/getPopularHandler.js";
+import deleteProfileHandler from "./handlers/deleteProfileHandler.js";
+import myRecipesHandler from './handlers/myRecipesHandler.js';
+import logoutHandler from "./handlers/logoutHandler.js";
+import searchHandler from "./handlers/searchHandler.js";
 
 const app = express();
 const port = 3000;
@@ -26,13 +32,22 @@ app.use(express.static('public'));
 app.get('/', rootHandler);
 app.post('/register', registerHandler);
 app.post('/login', loginHandler);
+app.get('/logout', logoutHandler);
 
 app.get('/profile', getProfileHandler);
 app.patch('/profile', updateProfileHandler);
+app.delete('/profile', deleteProfileHandler);
+
+app.get('/my_recipes', myRecipesHandler);
 
 app.post('/recipes', createRecipeHandler);
 app.get('/recipes', listRecipesHandler);
 app.get('/recipes/:id', getRecipeHandler);
+
+app.get('/featured', getFeaturedHandler);
+app.get('/popular', getPopularHandler);
+
+app.get('/search', searchHandler);
 
 app.listen(port, () => {
   console.log(`Cookbook app listening at http://localhost:${port}`);

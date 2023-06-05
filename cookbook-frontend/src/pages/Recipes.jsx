@@ -1,42 +1,67 @@
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 import Axios from '../utils/Axios.js';
+import {
+  Box,
+  Card,
+  Container,
+  CardActions,
+  Toolbar,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Typography,
+  AppBar,
+} from '@mui/material';
+import { ChevronLeft, Favorite } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-function RecipeCard({ recipe }) {
+export function RecipeCard({ recipe }) {
+  const navigate = useNavigate();
+
+  const handleNavigate = (e, id) => {
+    if (!!e.target.nearestViewportElement) {
+      if (e.target.nearestViewportElement.dataset.testid === 'FavoriteIcon') {
+      }
+    } else {
+      navigate(`/recipes/${id}`);
+    }
+  };
+
   return (
-    <div className="max-w-md w-full lg:flex">
-      <div
-        className="h-20 w-20 flex-none bg-cover rounded-t text-center overflow-hidden"
-        style={{
-          backgroundImage: "url('https://tailwindcss.com/img/card-left.jpg')",
-        }}
-      ></div>
-      <div className="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-        <div className="mb-8">
-          <div className="text-black font-bold text-xl mb-2">{recipe.name}</div>
-          <p className="text-grey-darker text-base">
-            <ul>
-              <li>{recipe.calories}</li>
-              <li>{recipe.prep_time}</li>
-            </ul>
-          </p>
-        </div>
-        <div className="flex items-center">
-          <img
-            className="w-10 h-10 rounded-full mr-4"
-            src={
-              recipe.user.avatar
-                ? `http://localhost:3000/images/${recipe.user.avatar}`
-                : 'http://localhost:3000/images/avatar.png'
-            }
-            alt="Avatar of Jonathan Reinink"
-          />
-          <div className="text-sm">
-            <p className="text-black leading-none">{recipe.user.name}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Card
+      sx={{ display: 'flex', mb: 1 }}
+      style={{ backgroundColor: '#ECE1DF' }}
+      onClick={(e) => handleNavigate(e, recipe.id)}
+    >
+      <CardMedia
+        component="img"
+        sx={{ width: 125 }}
+        image={
+          recipe.image
+            ? `http://localhost:3000/images/${recipe.image}`
+            : 'http://localhost:3000/images/unknown.png'
+        }
+      />
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <CardContent sx={{ flex: '1 0 auto' }}>
+          <Typography component="div" variant="h5" color="#765a00">
+            {recipe.name}
+          </Typography>
+          <Typography variant="subtitle1" color="#765a00" component="div">
+            {recipe.calories} cal
+          </Typography>
+          <Typography variant="subtitle1" color="#765a00" component="div">
+            {recipe.prep_time} mins
+          </Typography>
+        </CardContent>
+      </Box>
+      <CardActions sx={{ flex: '1 0 auto', justifyContent: 'flex-end' }}>
+        <IconButton>
+          <Favorite sx={{}} />
+        </IconButton>
+      </CardActions>
+    </Card>
   );
 }
 
@@ -46,11 +71,15 @@ export default function Recipes() {
     return Axios.get('recipes').then((res) => setRecipes(res.data.data));
   });
 
+  const navigate = useNavigate();
+
   return (
     <>
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
-      ))}
+      <Container sx={{ mt: 2, pb: 8 }}>
+        {recipes.map((recipe) => (
+          <RecipeCard key={recipe.id} recipe={recipe} />
+        ))}
+      </Container>
     </>
   );
 }

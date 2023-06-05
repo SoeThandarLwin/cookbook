@@ -7,6 +7,7 @@ import StepTable from '../components/StepTable.jsx';
 import { useMutation } from 'react-query';
 import Axios from '../utils/Axios.js';
 import { useNavigate } from 'react-router-dom';
+import { Container, Typography } from '@mui/material';
 
 const roundedButtonClasses =
   'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-3xl text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 uppercase';
@@ -25,6 +26,7 @@ export default function CreateRecipe() {
   const [nutritionUnit, setNutritionUnit] = useState('');
   const [steps, setSteps] = useState([]);
   const [stepContent, setStepContent] = useState('');
+  const [file, setFile] = useState();
 
   const navigate = useNavigate();
 
@@ -32,8 +34,13 @@ export default function CreateRecipe() {
     const request = parseRequest();
     const form = new FormData();
     form.append('data', JSON.stringify(request));
+    if (file) form.append('file', file, file.name);
 
-    return Axios.post('recipes', form).then((res) => {
+    return Axios.post('recipes', form, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }).then((res) => {
       if (res.status === 200) {
         navigate('/');
       }
@@ -138,8 +145,13 @@ export default function CreateRecipe() {
     mutate();
   };
 
+  const fileChangeHandler = (e) => setFile(e.target.files[0]);
+
   return (
-    <>
+    <Container>
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        Create Recipe
+      </Typography>
       <div>
         {isEmpty(ingredients) ? null : (
           <>
@@ -165,6 +177,21 @@ export default function CreateRecipe() {
             </div>
           </>
         )}
+      </div>
+
+      <div className="mb-2">
+        <label
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          htmlFor="file_input"
+        >
+          Upload file
+        </label>
+        <input
+          className="block w-full text-sm cursor-pointer mb-2"
+          id="file_input"
+          type="file"
+          onChange={fileChangeHandler}
+        />
       </div>
       <TextField
         handler={handleRecipeNameChange}
@@ -222,6 +249,7 @@ export default function CreateRecipe() {
           className={roundedButtonClasses}
           onClick={handleAddIngredient}
           type="button"
+          style={{ backgroundColor: '#765A00', margin: '1em 0' }}
         >
           add ingredient
         </button>
@@ -239,6 +267,7 @@ export default function CreateRecipe() {
           className={roundedButtonClasses}
           onClick={handleAddStep}
           type="button"
+          style={{ backgroundColor: '#765A00', margin: '1em 0' }}
         >
           add step
         </button>
@@ -275,6 +304,7 @@ export default function CreateRecipe() {
           className={roundedButtonClasses}
           onClick={handleAddNutrition}
           type="button"
+          style={{ backgroundColor: '#765A00', margin: '1em 0' }}
         >
           add nutrition
         </button>
@@ -284,10 +314,11 @@ export default function CreateRecipe() {
           className={roundedButtonClasses}
           onClick={handleSubmit}
           type="button"
+          style={{ backgroundColor: '#765A00', margin: '1em 0' }}
         >
           create recipe
         </button>
       </div>
-    </>
+    </Container>
   );
 }

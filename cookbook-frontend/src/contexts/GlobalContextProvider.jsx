@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import GlobalContext from './GlobalContext.js';
+import { useQuery } from 'react-query';
+import Axios from '../utils/Axios.js';
 
-const GlobalContextProvider = (props) => {
+const GlobalContextProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
 
   const globalState = {
@@ -9,9 +11,13 @@ const GlobalContextProvider = (props) => {
     setProfile,
   };
 
+  useQuery('profile', async () => {
+    return Axios.get('profile').then((data) => setProfile(data.data));
+  });
+
   return (
     <GlobalContext.Provider value={globalState}>
-      {props.children}
+      {children}
     </GlobalContext.Provider>
   );
 };

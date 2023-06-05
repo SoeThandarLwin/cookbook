@@ -3,7 +3,7 @@ import pool from '../data/database.js';
 const listRecipesHandler = async (request, response) => {
   const [rows] = await pool.execute(
     `SELECT recipes.id, recipes.name, recipes.image, recipes.calories, recipes.prep_time, 
-            users.id as user_id, users.name as user_name 
+            users.id as user_id, users.name as user_name, users.avatar as user_avatar 
         FROM recipes 
         JOIN users 
         ON users.id = recipes.user_id`,
@@ -19,6 +19,7 @@ const listRecipesHandler = async (request, response) => {
     user: {
       id: row.user_id,
       name: row.user_name,
+      avatar: row.user_avatar,
     },
   }));
 

@@ -1,4 +1,4 @@
-import {compose, isEmpty, path, propOr} from 'ramda';
+import { compose, isEmpty, path, propOr } from 'ramda';
 import jsonwebtoken from 'jsonwebtoken';
 
 export const getUserId = compose(path(['payload', 'id']));

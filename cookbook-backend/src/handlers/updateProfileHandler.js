@@ -4,10 +4,15 @@ import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 
 import pool from '../data/database.js';
-import {getTokenFromCookie, getUserId, isValidUser, verifyToken} from '../utils/auth.js';
-import {compose, head, isEmpty, not, prop} from "ramda";
+import {
+  getTokenFromCookie,
+  getUserId,
+  isValidUser,
+  verifyToken,
+} from '../utils/auth.js';
+import { compose, head, isEmpty, not, prop } from 'ramda';
 
-function moveFile(from, to) {
+export function moveFile(from, to) {
   const source = fs.createReadStream(from);
   const dest = fs.createWriteStream(to);
 
@@ -52,22 +57,22 @@ const UpdateProfileHandler = async (request, response) => {
       if (hasAttachment(files)) {
         file = getFile(files);
         const ext = file.originalFilename.split('.').pop();
-        const hashedFileName = `${uuidv4()}.${ext}`
+        const hashedFileName = `${uuidv4()}.${ext}`;
         await moveFile(file.path, `./public/images/${hashedFileName}`);
 
         const [result] = await pool.execute(
-            'UPDATE users SET name = ?, phone = ?, avatar = ? WHERE id = ?',
-            [name, phone, hashedFileName, userId]
+          'UPDATE users SET name = ?, phone = ?, avatar = ? WHERE id = ?',
+          [name, phone, hashedFileName, userId],
         );
       } else {
         const [result] = await pool.execute(
-            'UPDATE users SET name = ?, phone = ? WHERE id = ?',
-            [name, phone, userId],
+          'UPDATE users SET name = ?, phone = ? WHERE id = ?',
+          [name, phone, userId],
         );
       }
 
       response.status(200).send();
-    }  catch (e) {
+    } catch (e) {
       console.error(e);
       response.status(400).send();
     }

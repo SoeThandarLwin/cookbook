@@ -5,7 +5,6 @@ import pool from '../data/database.js';
 import { compose, head, propOr } from 'ramda';
 
 const getPropFromFields = (propName) => compose(head, propOr([], propName));
-
 const registerHandler = async (request, response) => {
   const form = new multiparty.Form();
   const salt = await bcrypt.genSalt(10);
@@ -23,8 +22,11 @@ const registerHandler = async (request, response) => {
         'INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)',
         [name, email, phone, hashedPassword],
       );
+
+      response.status(200).json({
+        success: true,
+      });
     } catch (error) {
-      console.log(error);
       response.status(400).json({
         success: false,
       });

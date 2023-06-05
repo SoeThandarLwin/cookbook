@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import Axios from '../utils/Axios.js';
+import { Container, Typography } from '@mui/material';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -39,7 +40,7 @@ export default function Register() {
       },
     }).then((res) => {
       if (res.status === 200) {
-        navigate('/');
+        navigate('/login');
       }
     });
   });
@@ -51,7 +52,10 @@ export default function Register() {
   };
 
   return (
-    <>
+    <Container>
+      <Typography variant="h5" sx={{ color: '#765A00', pb: 2 }}>
+        Register
+      </Typography>
       <form>
         <div className="grid gap-6 mb-6 md:grid-cols-2">
           <div>
@@ -146,6 +150,6 @@ export default function Register() {
           </div>
         </div>
       </form>
-    </>
+    </Container>
   );
 }
